@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+    function validatePassword() {
+            var password = document.getElementById("password").value;
+            var error = document.getElementById("error");
+            var success = document.getElementById("success");
+
+            // Reset error message
+            error.innerHTML = "";
+
+            // Check password length
+            if (password.length < 6 || password.length > 20) {
+                error.innerHTML = 6 - password.length;
+                return false;
+            }
+
+            // Check for lowercase, uppercase, and digit
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+            if (!regex.test(password)) {
+                error.innerHTML = "Password must contain at least one lowercase letter, one uppercase letter, and one digit.";
+                return false;
+            }
+
+            // Check for three repeating characters
+            var repeatingRegex = /([a-zA-Z0-9])\1{2}/;
+            if (repeatingRegex.test(password)) {
+                error.innerHTML = "Password cannot contain three repeating characters in a row.";
+                return false;
+            }
+
+            // Password is valid
+            success.innerHTML = 0;
+            return false;
+        }
+</script>
+<body>
+    <h1>Password Validation</h1>
+    <form onsubmit="return validatePassword()">
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <br>
+        <span id="success" style="color:green"></span>
+        <span id="error" style="color: red;"></span>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

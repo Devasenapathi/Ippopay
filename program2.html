@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function Partition(nums) {
+    const n = nums.length / 2;
+    const totalSum = nums.reduce((sum, num) => sum + num, 0);
+    const target = Math.floor(totalSum / 2);
+
+    const dp = new Array(target + 1).fill(false);
+    dp[0] = true;
+
+    for (const num of nums) {
+        for (let i = target; i >= num; i--) {
+            if (dp[i - num]) {
+                dp[i] = true;
+            }
+        }
+    }
+
+    let i = target;
+    while (!dp[i]) {
+        i--;
+    }
+
+    const minDiff = totalSum - 2 * i;
+    return minDiff;
+}
+const nums = [3,9,7,3];
+const minDiff = Partition(nums);
+console.log(minDiff);  // Output: 0
+
+</script>
+</html>
